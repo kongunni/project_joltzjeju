@@ -1,0 +1,412 @@
+@charset "UTF-8";
+
+/* post form */
+body {
+	
+}
+
+.container {
+	font-family: 'Chosunilbo_myungjo';
+	display: flex;
+	justify-content: center;
+	margin-top: 150px;
+	margin-bottom: 250px;
+}
+
+
+
+/* tab action */
+.comment-actions {
+	display: none;
+	position: absolute;
+	background-color: white;
+	border: 1px solid #ddd;
+	padding: 5px;
+	z-index: 100;
+	right: 0px;
+	width: 82px;
+	float: right;
+}
+
+.comment-actions button {
+	width: 100%;
+	text-align: left;
+	padding: 5px;
+	border: none;
+	background-color: white;
+	cursor: pointer;
+}
+
+.comment-actions button:hover {
+	font-weight: bold;
+	color: black !important;
+}
+
+
+
+.tab-field {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: black;
+}
+
+
+/*********************/
+.post {
+	border: 1px solid;
+	border-radius: 20px;
+	width: 55%;
+	
+	/*추가*/	
+	height: auto;
+	max-height: 100%;
+}
+
+.button-wrapper {
+	position: relative; /* Add this to position the comment-actions */
+	float: right;
+	right: 10px;
+	top: 10px;
+	margin-bottom: 50px;
+}
+
+.post-container {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	max-width: 100%;
+}
+
+.post-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	position: relative;
+	max-width: 100%;
+}
+
+.post-header {
+	width: 100%;
+	max-width: 100%;
+	margin-bottom: 20px;
+}
+
+.post-header-detail {
+	width: 20%;
+	max-width: 20%;
+	height: 100%;
+	background: inherit;
+	color: #515151;
+	display: flex;
+	float: right;
+	flex-wrap: wrap;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: flex-end;
+	margin: 0;
+	padding: 0;
+	border-radius: 0 20px 0 0;
+}
+
+.post-detail-column {
+	margin: 0px 10px;
+	font-size: 12px;
+}
+
+.post-title {
+	background: inherit;
+	width: 80%;
+	max-width: 80%;
+	height: 100%;
+	display: flex;
+	float: left;
+	flex-direction: column;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	color: black;
+}
+
+.post-title h2 {
+	float: left;
+	margin-bottom: 0;
+	margin-left: 10px;
+	font-size: 20px;
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 10px;
+}
+
+/*body*/
+.post-body {
+	width: 100%;
+	max-width: 100%;
+}
+
+.post-body-detail {
+	display: flex;
+	width: 100%;
+	max-width: 100%;
+	height: 500px;
+	background: white;
+	justify-content: center;
+}
+
+.post-content {
+	height: auto;
+	max-height: 1000px;
+    overflow: visible;
+    word-wrap: break-word;
+    overflow-y: auto;
+    padding: 10px;
+    margin-bottom: 50px;
+}
+/* content form */
+.comment-container {
+	/* height: auto; */
+	display: flex;
+	flex-direction: column;
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	justify-content: flex-start;
+	padding: 20px;
+	background: #f6f6f6;
+}
+
+.comment-wrapper {
+	display: flex;
+	justify-items: center;
+	width: 100%;
+	height: 80px;
+	max-width: 100%;
+}
+
+/* 댓글작성폼 */
+.comment-insert {
+	display: flex;
+	width: 100%;
+	max-width: 100%;
+}
+
+.comment-insert-frammer {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	height: 80px;
+}
+
+.comment-insert-frammer #comment-text {
+	width: 85%;
+	padding: 10px 10px;
+}
+
+
+.button-frammer{
+	margin-top: -70px;
+	float: right;
+	margin-right: 10px;
+
+}
+
+.button-frammer #comment-writeBtn{
+    border: none;
+    border-radius: 5px;
+    font-size: 10px;
+    width: 35px;
+    height: 25px;
+    justify-content: center;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    background: black;
+    color: white;
+}
+
+.button-frammer #comment-writeBtn:hover{
+	background: #c90000;
+}
+
+.count-frammer {
+	display: flex;
+	justify-content: flex-end;
+	width: 90%;
+	font-size: 10px;	
+}
+
+
+
+/* 댓글목록 ~ 답댓글폼 ~ 답댓글목록 */
+
+.comments-section {
+    margin-top: 30px;
+}
+
+.comments-section h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.comment-list {
+    margin: 0;
+    padding: 0;
+}
+
+.comment-item {
+    padding: 10px;
+    background-color: #fafafa;
+    margin-bottom: 10px;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+}
+
+.comment-author, .reply-author {
+    font-weight: bold;
+    font-size: 10px;
+    margin-top: 25px;
+}
+
+.comment-button-wrapper{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.reply-button,
+.save-reply-button,
+.edit-button,
+.delete-button,
+.reply-edit-button,
+.reply-delete-button {
+	border: none;
+	border-radius: 5px;
+	font-size: 10px;
+    color: white;
+    background: black;
+	width: 35px;
+    height: 25px;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin-top: 10px;
+    float: right;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reply-button:hover,
+.save-reply-button:hover,
+.edit-button:hover,
+.delete-button:hover {
+   background: #c90000;
+}
+
+
+.comment-body,
+.reply-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    font-size: 12px;
+    
+    height: auto;
+    max-height: 350px;
+}
+
+
+.comment-content,
+.reply-content {
+    flex-grow: 1;
+}
+
+.comment-date,
+.reply-date {
+    font-size: xx-small;
+    color: #666;
+    margin-left: 10px;
+}
+
+.comment-author-action,
+.reply-actions {
+    display: flex;
+    margin-bottom: 10px;
+    gap: 5px;
+    justify-content: flex-start;
+}
+
+/* 댓글 수정폼 */
+.comment-edit-wrapper {
+	display: none;
+	margin-top: -25px;
+	width: 100%;
+	height: 60px;
+}
+
+.comment-edit-text {
+	width: 100%;
+	background: #fafafa;
+}
+
+.comment-edit-form {
+	width: 98%;
+	height: 60px;
+	overflow-y: auto;
+}
+
+
+/* 답댓글 */
+
+.replies {
+    margin-top: 10px;
+    padding-left: 20px;
+    border-left: 2px solid #ddd;
+    max-height: 200px;
+}
+
+.reply-item {
+    margin-top: 20px;
+}
+
+.reply-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reply-author {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+
+.reply-form {
+    /* display: flex; */
+   display: none;
+}
+
+.reply-form-wrapper {
+    display: flex;
+    width: calc(100% - 10px);
+    margin-right: 10px;
+}
+
+.reply-form textarea {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.reply-wrapper {
+    display: flex;
+    flex-direction: column;
+    float: right;
+}

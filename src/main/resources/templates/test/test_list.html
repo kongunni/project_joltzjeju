@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test_communitylist</title>
+	<link rel="stylesheet" th:href="@{/css/common/navigation.css}">
+    <!-- script -->
+	<script src="/js/common/navigation.js"></script>
+	
+</head>
+<body>
+<!-- 네비게이션바 -->
+<div th:replace="/fragments/nav.html :: fragment-nav"></div>
+
+<div class="container">
+    <h2>게시글 목록</h2>
+    <div>
+        <a href="/test/test_detail">글쓰기</a>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+            <th style="display:none;">수정</th>
+            <th style="display:none;">삭제</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="post: ${postPage.content}" th:unless="${post.deleteYn eq 'Y'}">
+            <td th:text="${post.pid}"></td>
+            <td><a th:href="@{'/community/detail/' + ${post.pid}}" th:text="${post.title}"></a></td>
+            <td th:text="${post.author}"></td>
+            <td th:text="${#temporals.format(post.createdAt, 'yy.MM.dd HH:mm:ss')}"></td>
+            <td><a href="#" style="display:none;">수정</a></td>
+            <td><a href="#" style="display:none;">삭제</a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

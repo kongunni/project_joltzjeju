@@ -1,0 +1,167 @@
+@charset "UTF-8";
+
+	
+	.container {
+		max-width: 800px;
+		margin: auto;
+	}
+	
+	.post-detail {
+		background-color: #fff;
+		padding: 20px;
+		margin-bottom: 20px;
+		border-radius: 5px;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	}
+	
+	.post-title {
+		font-size: 24px;
+		font-weight: bold;
+		margin-bottom: 10px;
+	}
+	
+	.post-author {
+		font-size: 14px;
+		color: #888;
+		margin-bottom: 10px;
+	}
+	
+	.post-content {
+		margin-bottom: 20px;
+	}
+	
+	.post-image {
+		max-width: 100%;
+		border-radius: 5px;
+		margin-bottom: 20px;
+	}
+	
+	.comment-section {
+		margin-top: 30px;
+	}
+	
+	.comment-form {
+		margin-top: 30px;
+	}
+	
+	
+	
+	/* 댓글*/
+	.comment-post {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+	}
+	
+	.comment-details {
+	    display: flex;
+	    align-items: center;
+	}
+	
+	.comment-info {
+	    display: flex;
+	    gap: 5px; /* 작성자와 작성 시간 사이의 거리 조정 */
+	}
+	
+	.reply-button {
+	    margin-left: auto; /* 답글 버튼을 오른쪽 끝으로 배치 */
+	}
+
+
+	.comment-list {
+		display: flex;
+	    width: 100%;
+	    align-items: center;
+	    flex-direction: row;
+	    margin: 20px 40px 40px 40px;
+	}
+
+	/* 댓글 */
+	
+	
+	/* 댓글수정 */
+	.comment-edit{
+		display: flex;
+	    justify-content: center;
+	    align-items: center;
+		
+	}
+	
+	.edit-frammer {
+		width: 100%;
+		display: flex;
+	   justify-content: center;
+	   align-items: center;
+		
+	}
+	
+	.edit-text {
+		width: 90%;
+		display: flex;
+/* 	   justify-content: center;
+	   align-items: center;
+		 */
+		/* 
+        height: auto;
+        min-height: 4em;
+        max-height: 10em;
+        overflow-y: auto;
+        resize: none;
+        line-height: 1.5em;
+        padding: 10px;
+        box-sizing: border-box;
+        margin-bottom: 10px; */
+	}
+	
+	.edit-text textarea {
+		width: 100%;
+/* 		align-items: center;
+		justify-content: center; */
+	}
+	
+	.button-wrapper {
+		
+	}
+	
+	
+	/* 답댓글 */
+	.reply-form {
+		width: 100%;
+		margin-top: 10px;
+	}
+	
+	.reply-wrapper{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		
+	}
+	
+	.reply-text {
+		width: 90%;
+        height: auto;
+        min-height: 4em;
+        max-height: 10em;
+        overflow-y: auto;
+        resize: none;
+        line-height: 1.5em;
+        padding: 10px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+	}
+	
+	.textarea-detail {
+		width: 90%;
+        height: auto;
+        min-height: 4em;
+        max-height: 10em;
+        overflow-y: auto;
+        resize: none;
+        line-height: 1.5em;
+        padding: 10px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+	}
+	
+	

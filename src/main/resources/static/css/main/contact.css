@@ -1,0 +1,147 @@
+@charset "UTF-8";
+
+/*  framer-header  */
+
+/* ********************************** */
+
+.framer-header {
+    width: 92%;
+    height: min-content;
+    justify-content: center;
+    margin: 0;
+    position: relative;
+    padding: 0;
+    gap: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: center;
+}
+
+
+.subject {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0px;
+    position: relative;
+    justify-content: flex-start;
+    overflow: hidden;
+    width: 100%;
+}
+
+@media(max-width: 890px) {
+    .subject {
+        padding: 0 0 10px;
+       
+    }
+}
+
+@media(max-width: 549px) {
+    .subject #sub-1 h1{
+        margin: 100px 0 0 0;
+        font-size: 1.5em;
+    }
+}
+
+.subject #sub-1 {
+    margin: 0 0 0 40px;
+    font-size: 50px;
+    font-family: 'UhBeeJJIBBABBA';
+    font-weight: 400;
+    font-style: normal;
+}
+
+@media(max-width: 890px) {
+    .subject #sub-1 {
+        font-size: 2.75rem;
+    }
+    
+}
+
+.subject #sub-2 {
+    width: 80%;
+    margin: 0 0 0 40px;
+    
+    font-weight: 100;
+    font-family: 'intelone-mono-font-family-regular';
+    font-style: normal;
+    font-size: 15px;
+}
+
+
+
+
+
+/*  contact button  */
+.framer-contact {
+    background-color: antiquewhite;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    position: relative;
+    gap: 10px;
+    height: 250px;
+    width: 92%;
+    top: 40px;
+}
+
+.contact-wrapper {
+   display: inline-block;
+    position: relative;
+    margin: 0 0 0 40px;
+    width: 100%; 
+}  
+
+.contact-container{
+    position: relative;
+    width: 260px;
+    height: 56px;
+    border-radius: 30px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 100;
+    font-size: 18px;
+}
+
+.contact-container::before {
+    content: "joltz@jeju.io";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    transition: background 0.5s;
+    z-index: 1;
+}
+
+.contact-container::after {
+    content: "Let's connect";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    top: 100%;
+    transition: top 0.5s;
+    z-index: 2;
+}
+
+.contact-container:hover::before {
+    background: black;
+}
+
+.contact-container:hover::after {
+    top: 0;
+}

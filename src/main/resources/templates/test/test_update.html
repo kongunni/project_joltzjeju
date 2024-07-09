@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Post</title>
+</head>
+<body>
+ <h1>Update Post</h1>
+    <form th:action="@{'/community/edit/' + ${post.pid}}" th:object="${post}" method="post">
+        <input type="hidden" th:field="*{pid}" />
+        
+        <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" th:field="*{title}" />
+        </div>
+        
+        <div>
+            <label for="contents">Contents:</label>
+            <textarea id="contents" th:field="*{contents}"></textarea>
+        </div>
+
+        <div>
+            <label for="updatedAt">Updated At:</label>
+            <input id="updatedAt" th:value="${#temporals.format(post.updatedAt, 'yy.MM.dd HH:mm:ss')}" th:if="${post.updatedAt != null}" readonly="readonly"/>
+        </div>
+        
+        <div>
+            <button type="submit">Update</button>
+        </div>
+    </form>
+</body>
+</html>

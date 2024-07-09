@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="utf-8" xmlns:th="http://www.thymeleaf.org">
+<div class="navbar" th:fragment="fragment-nav">
+	<!-- logo -->
+	<div class="logo">
+		<a th:href="@{/}">JJJ<a style="font-size: 15px; vertical-align: super;">®</a></a>
+	</div>
+	<div class="hamburger-menu" id="hamburger-menu">&#9776;</div>
+	<div class="nav-wrapper" id="nav-wrapper">
+		<div class="close-btn" id="close-btn">&times;</div>
+		<div class="nav-booking">
+			<h3>Booking projects from July 2024</h3>
+		</div>
+		<div class="nav-wrapper-frame" id="wrapper1">
+			<div class="nav-container">
+				<a>projects,</a>
+			</div>
+			<div class="nav-container">
+				<a th:href="@{/community/test/list}">about,</a>
+<!-- 				<a th:href="@{#}">about,</a> -->
+			</div>
+			<div class="nav-container">
+				<a th:href="@{/community/list}">community</a>
+			</div>
+		</div>
+		<div class="nav-wrapper-frame" id="wrapper2">
+			<div class="nav-container">
+				<div class="nav-contact">
+					<h3 id="contact-email">email@gmail.com</h3>
+				</div>
+				<ul>
+					<li th:if="${session.CURRENT_USER == null}">
+						<button id="loginBtn"> login </button>
+					</li>
+					<li th:if="${session.CURRENT_USER != null}">
+						<!-- mypage -->
+						<button href="#" th:text="${session.CURRENT_USER.nickname}"></button>
+						<!-- <form th:action="@{/user/logout}" method="post"> -->
+						<button id="logoutBtn">logout</button>
+						<!-- </form> -->
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- navbar end-->
+
+</html>

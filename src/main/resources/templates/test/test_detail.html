@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>게시글 상세보기</title>
+</head>
+<link rel="stylesheet" th:href="@{/css/common/navigation.css}">
+<link rel="stylesheet" th:href="@{/css/community/test_detail.css}">
+<!-- script -->
+<style>
+/* kor */
+
+@font-face {
+    font-family: 'Chosunilbo_myungjo';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+</style>
+<script src="/js/common/navigation.js"></script>
+<body style="width: 100%;">
+
+<div th:replace="/fragments/nav.html :: fragment-nav"></div>
+<div class="container">
+	<div class="post" th:each="post: ${post}">
+		<div class="button-wrapper">
+	        <button onclick="toggleActions()" style="background: inherit; border: none;">...</button>
+	        <div class="comment-actions" id="tab-action">
+	            <button class="tab-field" onclick="copyLink()">링크복사</button>
+	            <button class="tab-field" onclick="report()">신고</button>
+	            <button class="tab-field" th:onclick="'editPost(' + ${post.pid} + ')'">수정</button>
+	            <button class="tab-field" onclick="deleteComment('${post.pid}')">삭제</button>
+	            <button class="tab-field" onclick="toggleActions()">닫기</button>
+	        </div>
+	    </div> <!-- button-wrapper -->
+		<!-- 게시글폼 -->	
+		<div class="post-container" >
+			<div class="post-wrapper">
+				<div class="post-header">
+					<div class="post-title">
+						<h2 th:text="${post.title}"></h2>
+					</div>
+					<div class="post-header-detail">
+						<p th:id="postNickname" th:class="post-detail-column" th:text="${post.author}"></p>
+						<p th:id="postPid" th:class="post-detail-column" th:text="no + '. ' +${post.pid}"></p>
+						<!-- 업데이트시 수정시간으로 변경 -->
+						<p th:id="postSetDate" th:class="post-detail-column" th:text="${#temporals.format(post.createdAt, 'yy.MM.dd HH:mm:ss')}" th:if="${post.updatedAt == null}"></p>
+						<p th:id="postSetUpdate" th:class="post-detail-column" th:text="${#temporals.format(post.updatedAt, 'yy.MM.dd HH:mm:ss')}" th:if="${post.updatedAt != null}"></p>
+					</div> <!-- post-header-detail -->
+				</div> <!-- post-header -->
+				
+				<div class="post-body">
+					<div class="post-body-detail">
+						<div class="post-content">
+							<p th:text="${post.contents}" style="padding: 20px;"></p>
+						</div>
+					</div> <!-- post-body-detail -->
+				</div> <!-- post-body -->
+			</div> <!-- post-wrapper -->
+		</div> <!--  post-form -->
+
+		<!-- 댓글폼 -->
+		<div class="comment-container">
+			<div class="comment-wrapper">
+			
+			</div> <!-- comment-wrapper -->
+		</div> <!-- comment-container -->
+	</div> <!-- post -->
+</div><!-- container -->
+<div class="footer" style="background: black; height: 200px;"></div>
+<script th:src="@{https://unpkg.com/axios/dist/axios.min.js}"></script>
+<script type="text/javascript">
+
+/* tab action */
+function toggleActions() {
+            var actionsDiv = document.getElementById('tab-action');
+            if (actionsDiv.style.display === "block") {
+                actionsDiv.style.display = "none";
+            } else {
+                actionsDiv.style.display = "block";
+            }
+        }
+
+function copyLink() {
+    alert("링크를 복사합니다.");
+    // 실제 링크를 복사하는 JavaScript 코드를 여기에 추가할 수 있습니다.
+}
+
+function report() {
+    alert("댓글을 신고합니다.");
+    // 댓글을 신고하는 JavaScript 코드를 여기에 추가할 수 있습니다.
+}
+
+function editPost(pid) {
+	 window.location.href = '/community/edit/' + pid;
+}
+
+function deletePost(commentId) {
+    alert("댓글 삭제 기능을 실행합니다. Comment ID: " + pid);
+    // 댓글 삭제 기능을 구현할 수 있습니다.
+}
+</script>
+</body>
+</html>

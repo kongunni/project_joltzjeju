@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+/* kor */
+@font-face {
+    font-family: 'Chosunilbo_myungjo';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:lang(ko) {
+	font-family: 'Chosunilbo_myungjo';	
+	font-weight: normal;
+	font-style: normal;
+}
+
+/* eng */
+
+/* 태그에 lang="ko" 설정하여 사용 */

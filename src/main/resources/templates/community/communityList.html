@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community</title>
+    
+    	<link rel="stylesheet" th:href="@{/css/common/navigation.css}">
+    	
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        th {
+            background-color: #f8f9fa;
+        }
+
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+            resize: vertical;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Pagination Styles */
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .pagination a {
+            display: inline-block;
+            padding: 8px 16px;
+            color: #007bff;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            margin-right: 5px;
+        }
+
+        .pagination a.active {
+            background-color: #007bff;
+            color: #fff;
+            border: 1px solid #007bff;
+        }
+
+        .pagination a:hover {
+            background-color: #f2f2f2;
+        }
+    </style>
+    
+    <!-- script -->
+	<script src="/js/common/navigation.js"></script>
+	
+</head>
+<body>
+<!-- 네비게이션바 -->
+<div th:replace="/fragments/nav.html :: fragment-nav"></div>
+
+<div class="container">
+    <h2>게시글 목록</h2>
+    <div>
+        <a href="/community/write">글쓰기</a>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>작성일</th>
+            <th>수정</th>
+            <th>삭제</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="post: ${postPage.content}" th:unless="${post.deleteYn eq 'Y'}">
+            <td th:text="${post.pid}"></td>
+            <td><a th:href="@{'/community/detail/' + ${post.pid}}" th:text="${post.title}"></a></td>
+            <td th:text="${post.author}"></td>
+            <td th:text="${post.createdAt}"></td>
+            <td><a th:href="@{'/community/'+${post.pid}+'/edit'}">수정</a></td>
+            <td><a href="#">삭제</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="pagination">
+        <span th:if="${postPage.hasPrevious()}">
+            <a th:href="@{|/community/list?page=${postPage.number}&size=${postPage.size}|}">prev</a>
+        </span>
+        <span th:each="pageNum : ${#numbers.sequence(1, postPage.totalPages)}">
+            <a th:href="@{|/community/list?page=${pageNum}&size=${postPage.size}|}"
+               th:text="${pageNum}"
+               th:classappend="${postPage.number+1 == pageNum} ? 'active' : ''"></a>
+        </span>
+        <span th:if="${postPage.hasNext()}">
+            <a th:href="@{|/community/list?page=${postPage.number+2}&size=${postPage.size}|}">next</a>
+        </span>
+    </div>
+</div>
+</body>
+</html>

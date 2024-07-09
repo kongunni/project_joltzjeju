@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>게시글 상세보기</title>
+</head>
+<link rel="stylesheet" th:href="@{/css/common/navigation.css}">
+<link rel="stylesheet" th:href="@{/css/community/test_detail.css}">
+<!-- script -->
+<style>
+/* kor */
+
+@font-face {
+    font-family: 'Chosunilbo_myungjo';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Chosunilbo_myungjo.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+</style>
+<script src="/js/common/navigation.js"></script>
+<body style="width: 100%;">
+
+<div th:replace="/fragments/nav.html :: fragment-nav"></div>
+<div class="container">
+	<div class="post" th:each="post: ${post}">
+		<div class="button-wrapper">
+	        <button onclick="toggleActions()" style="background: inherit; border: none;">...</button>
+	        <div class="comment-actions" id="tab-action"  style="display:none;">
+	            <button class="tab-field" onclick="copyLink()">링크복사</button>
+	            <button class="tab-field" onclick="report()">신고</button>
+	            <button class="tab-field" th:onclick="'editPost(' + ${post.pid} + ')'">수정</button>
+	            <button class="tab-field" onclick="deleteComment('${post.pid}')">삭제</button>
+	            <button class="tab-field" onclick="toggleActions()">닫기</button>
+	        </div>
+	    </div> <!-- button-wrapper -->
+		<!-- 게시글폼 -->	
+		<div class="post-container" >
+			<div class="post-wrapper">
+				<div class="post-header">
+					<div class="post-title">
+						<h2 th:text="${post.title}"></h2>
+					</div>
+					<div class="post-header-detail">
+						<p th:text="${post.author}+ ' ' + 'no.' +${post.pid} + ' ' + ${#temporals.format(post.createdAt, 'yy.MM.dd HH:mm:ss')}" th:if="${post.updatedAt == null}"></p>
+						<p th:text="${post.author}+ ' ' + 'no.' +${post.pid} + ' ' + ${#temporals.format(post.updatedAt, 'yy.MM.dd HH:mm:ss')}" th:if="${post.updatedAt != null}"></p>
+						<p th:id="pid" th:text="${post.pid}" style="display:none;"></p>
+					</div> <!-- post-header-detail -->
+				</div> <!-- post-header -->
+				
+				<div class="post-body">
+					<div class="post-body-detail">
+						<div class="post-content">
+							<p th:text="${post.contents}" style="padding: 20px;"></p>
+						</div>
+					</div> <!-- post-body-detail -->
+				</div> <!-- post-body -->
+			</div> <!-- post-wrapper -->
+		</div> <!--  post-form -->
+
+		<!-- 댓글폼 -->
+		<div class="comment-container">
+			<div class="comment-wrapper">
+				<!-- 댓글작성폼 -->
+				<div class="comment-insert">
+					<form th:action="@{/community/detail/{pid}/comment/insert(pid=${post.pid})}" method="post" style="width: 100%;">
+						<div class="comment-insert-frammer">
+							<div class="comment-text-wrapper">
+								<textarea id="comment-text" name="comment" class="form-control" 
+								      maxlength="500" oninput="lengthCount()"
+									  rows="3" placeholder="your comment..." required></textarea>
+							</div>
+							<div class="button-frammer">
+								<button id="comment-writeBtn" type="submit">write</button>
+							</div>
+							<div class="count-frammer">
+								<span id="charCount1">0</span>/500자
+							</div>
+						</div> <!-- comment-insert-frammer -->
+					</form>				
+				</div> <!-- comment-insert -->
+			</div> <!-- comment-wrapper -->
+			
+			<!-- 댓글리스트 -->
+			<div class="comment-section" th:if="${commentList}">
+				 <h2 style="margin-bottom: 5px; font-size: 18px;">Comments</h2>
+           		 <div class="comment-list" th:each="comment : ${commentList}"  th:if="${comment.deleteYn == 'N'}">
+           		
+                	<!-- 댓글 목록 -->
+<!--                 	<div class="comment-item" data-pid="${post.pid}" data-cid="${comment.cid}"> --> 
+                	<div class="comment-item"> 
+                		<div class="comment-header">
+                        	<span class="comment-author" th:text="${comment.author}"></span>
+	                        <div class="comment-button-wrapper">
+	                            <button th:id="reply-button">reply</button>
+	                        </div>
+	                    </div> <!-- comment-header -->
+	                    
+	                    <div class="comment-body">
+	                        <div class="comment-content" th:text="${comment.comment}"></div>
+	                        <span class="comment-date" th:text="${#temporals.format(comment.createdAt, 'MM-dd HH:mm')}"></span>
+	                    </div>
+	                    
+	                    <!--댓글수정폼 -->
+                    	<div class="comment-edit-wrapper" style="display: none;">
+		           		 	<form th:action="@{/community/detail/{pid}/comment/update(pid=${post.pid}, cid=${comment.cid})}" method="post" style="width: 100%;">
+			           		 	<div class="comment-edit-text">
+			           		 		<textarea class="comment-edit-form" name="comment" th:text="${comment.comment}"></textarea>
+			           		 	</div>
+			           		 	
+								<div class="edit-button-frammer">
+									<button id="comment-editBtn" type="submit">edit</button>
+									<button class="comment-editCancel">cancel</button>
+								</div>
+								
+			           		 	<div class="count-frammer">
+									<span id="charCount2">0</span>/500자
+								</div>
+		           		 	</form>
+       		 			</div> <!-- comment-edit-wrapper  -->
+	                    
+	                    <!-- 댓글 수정 삭제 -->
+	                    <div class="comment-author-action" th:if="${CURRENT_USER != null and CURRENT_USER.email == comment.authorId}">
+	                        <button class="edit-button" th:onclick="showEditForm(this)" >edit</button>
+							<form th:action="@{/community/detail/{pid}/comment/delete(pid=${post.pid}, cid=${comment.cid})}" method="post">
+			               		<button class="delete-button" type="submit">delete</button>
+			               	</form>
+			               <!--  <button type="submit" class="delete-button" onclick="deleteComment(this)">Delete</button> -->
+	                    </div>
+                    	
+                    	<!-- 답글폼 -->
+		                <div class="reply-form" style="display:none;">
+	                    	<form th:action="@{/community/comment/{cid}/reply/insert(cid=${comment.cid})}" method="post">
+		                        <div class="reply-form-wrapper">
+		                            <textarea name="comment" placeholder="Write a reply..."></textarea>
+		                       		<input type="hidden" name="cid" th:value="${comment.cid}" />
+		                        </div>
+		                        <div class="reply-wrapper">
+		                            <button type="submit" class="save-reply-button">write</button>
+		                        </div>
+	                        </form>
+	                    </div>
+                    	
+                    	<!-- 답글 목록 -->
+	                     <div class="replies" th:if="${comment.parentCid != null}">
+	                        <div class="reply-item" >
+	                            <div class="reply-header">
+	                                <span class="reply-author" th:text="${comment.author}"></span>
+	                            </div>
+	                            <div class="reply-body">
+	                                <div class="reply-content" th:text="${comment.comment}"></div>
+									<span class="reply-date" th:text="${#temporals.format(comment.createdAt, 'MM-dd HH:mm')}"></span>
+	                            </div>
+	                            <div class="reply-actions" th:if="${CURRENT_USER != null and CURRENT_USER.email == comment.authorId}">
+	                                <button class="reply-edit-button">Edit</button>
+	                                <button class="reply-delete-button">Delete</button>
+	                            </div>
+	                        </div>
+	                    </div> <!-- replies -->
+	                    
+	                    
+                	</div> <!-- comment-item -->	
+				</div> <!-- comment-list -->
+			</div> <!-- comment-section -->
+				<!-- 댓글의 답댓글폼 -->
+		</div> <!-- comment-container -->
+	</div> <!-- post -->
+</div><!-- container -->
+<div class="footer" style="background: black; height: 200px;"></div>
+<script th:src="@{https://unpkg.com/axios/dist/axios.min.js}"></script>
+<script type="text/javascript">
+
+
+/* tab action */
+function toggleActions() {
+	var actionsDiv = document.getElementById('tab-action');
+    if (actionsDiv.style.display === "block") {
+    	actionsDiv.style.display = "none";
+ 	 } else {
+     	actionsDiv.style.display = "block";
+     }
+}
+
+function copyLink() {
+    alert("링크를 복사합니다.");
+}
+
+function report() {
+    alert("댓글을 신고합니다.");
+}
+
+function editPost(pid) {
+	 //window.location.href = '/community/edit/' + pid;
+}
+
+function deletePost(commentId) {
+    alert("댓글 삭제 기능을 실행합니다. Comment ID: " + pid);
+}
+
+/*
+ * 
+ 
+ <div class="comment-button-wrapper">
+ <button th:id="reply-button" th:onclick="toggleReplyForm()">reply</button>
+</div>
+ */
+
+
+document.getElementById('reply-button').addEventListener("click", toggleReplyForm); 
+ 
+/* reply 버튼 활성화: 댓글의 답글 폼 보여주기 */
+function toggleReplyForm() {
+    var replyForm = document.querySelector('.reply-form');
+    if (replyForm.style.display === 'none' || replyForm.style.display === '') {
+		replyForm.style.display = 'flex';
+	} else {
+		replyForm.style.display = 'none';
+    }
+}
+
+
+/*댓글수정*/
+function showEditForm(button) {
+	const commentItem = button.closest('.comment-item');
+    const editWrapper = commentItem.querySelector('.comment-edit-wrapper');
+    const editButton = button;
+    const authorAction = document.querySelector('.comment-author-action'); 
+    
+    // 폼 보이기
+    editWrapper.style.display = 'block';
+    
+    // 수정 버튼 숨기기
+    editButton.style.display = 'none';
+    authorAction.style.display = 'none';
+    
+    // 취소 버튼 이벤트 추가
+    const cancelButton = editWrapper.querySelector('.comment-editCancel');
+    cancelButton.addEventListener('click', function() {
+        editWrapper.style.display = 'none';
+		authorAction.style.display= 'flex';        
+    });
+}
+
+</script>
+</body>
+</html>
